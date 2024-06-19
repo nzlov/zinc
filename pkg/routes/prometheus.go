@@ -17,10 +17,9 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	ginprometheus "github.com/zinclabs/go-gin-prometheus"
-
-	"github.com/zinclabs/zinc/pkg/config"
-	"github.com/zinclabs/zinc/pkg/core"
+	ginprometheus "github.com/zincsearch/go-gin-prometheus"
+	"github.com/zincsearch/zincsearch/pkg/config"
+	"github.com/zincsearch/zincsearch/pkg/core"
 )
 
 // SetPrometheus sets up prometheus metrics for gin

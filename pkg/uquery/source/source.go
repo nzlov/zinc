@@ -18,9 +18,9 @@ package source
 import (
 	"strings"
 
-	"github.com/zinclabs/zinc/pkg/errors"
-	"github.com/zinclabs/zinc/pkg/meta"
-	"github.com/zinclabs/zinc/pkg/zutils/json"
+	"github.com/zincsearch/zincsearch/pkg/errors"
+	"github.com/zincsearch/zincsearch/pkg/meta"
+	"github.com/zincsearch/zincsearch/pkg/zutils/json"
 )
 
 func Request(v interface{}) (*meta.Source, error) {
@@ -52,12 +52,13 @@ func Request(v interface{}) (*meta.Source, error) {
 }
 
 func Response(source *meta.Source, data []byte) map[string]interface{} {
+	ret := make(map[string]interface{})
+
 	// return empty
 	if !source.Enable {
-		return nil
+		return ret
 	}
 
-	ret := make(map[string]interface{})
 	err := json.Unmarshal(data, &ret)
 	if err != nil {
 		return nil

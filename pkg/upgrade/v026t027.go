@@ -20,11 +20,11 @@ import (
 	"path"
 	"sort"
 
-	"github.com/zinclabs/zinc/pkg/config"
-	"github.com/zinclabs/zinc/pkg/ider"
-	"github.com/zinclabs/zinc/pkg/meta"
-	"github.com/zinclabs/zinc/pkg/zutils"
-	"github.com/zinclabs/zinc/pkg/zutils/json"
+	"github.com/zincsearch/zincsearch/pkg/config"
+	"github.com/zincsearch/zincsearch/pkg/ider"
+	"github.com/zincsearch/zincsearch/pkg/meta"
+	"github.com/zincsearch/zincsearch/pkg/zutils"
+	"github.com/zincsearch/zincsearch/pkg/zutils/json"
 )
 
 // UpgradeFromV026T027 upgrades from version v0.2.6
@@ -71,14 +71,14 @@ func UpgradeFromV026T027(index *meta.Index) error {
 	if err != nil {
 		return err
 	}
-	if err := os.Mkdir(path.Join(rootPath, indexName), 0755); err != nil {
+	if err := os.Mkdir(path.Join(rootPath, indexName), 0o755); err != nil {
 		return err
 	}
 
 	// make new shards
 	shardNames := make([]string, 0, index.ShardNum)
 	for id := range index.Shards {
-		if err := os.Mkdir(path.Join(rootPath, indexName, id), 0755); err != nil {
+		if err := os.Mkdir(path.Join(rootPath, indexName, id), 0o755); err != nil {
 			return err
 		}
 		shardNames = append(shardNames, id)

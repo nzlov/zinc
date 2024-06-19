@@ -19,7 +19,7 @@ import (
 	"bytes"
 	"sync"
 
-	"github.com/zinclabs/zinc/pkg/zutils/json"
+	"github.com/zincsearch/zincsearch/pkg/zutils/json"
 )
 
 // Mappings holds the index mappings.

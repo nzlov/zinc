@@ -23,10 +23,10 @@ import (
 	"github.com/blugelabs/bluge/analysis"
 	"golang.org/x/sync/errgroup"
 
-	"github.com/zinclabs/zinc/pkg/meta"
-	zincanalysis "github.com/zinclabs/zinc/pkg/uquery/analysis"
-	"github.com/zinclabs/zinc/pkg/zutils/hash/rendezvous"
-	"github.com/zinclabs/zinc/pkg/zutils/json"
+	"github.com/zincsearch/zincsearch/pkg/meta"
+	zincanalysis "github.com/zincsearch/zincsearch/pkg/uquery/analysis"
+	"github.com/zincsearch/zincsearch/pkg/zutils/hash/rendezvous"
+	"github.com/zincsearch/zincsearch/pkg/zutils/json"
 )
 
 type Index struct {
@@ -88,6 +88,12 @@ func (index *Index) GetStats() meta.IndexStat {
 	s := index.ref.Stats
 	index.lock.RUnlock()
 	return s
+}
+
+func (index *Index) UpdateWALSize(size uint64) {
+	index.lock.Lock()
+	index.ref.Stats.WALSize = size
+	index.lock.Unlock()
 }
 
 func (index *Index) GetAnalyzers() map[string]*analysis.Analyzer {

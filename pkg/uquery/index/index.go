@@ -20,11 +20,11 @@ import (
 
 	"github.com/blugelabs/bluge/analysis"
 
-	"github.com/zinclabs/zinc/pkg/errors"
-	"github.com/zinclabs/zinc/pkg/meta"
-	zincanalysis "github.com/zinclabs/zinc/pkg/uquery/analysis"
-	"github.com/zinclabs/zinc/pkg/uquery/mappings"
-	"github.com/zinclabs/zinc/pkg/zutils/json"
+	"github.com/zincsearch/zincsearch/pkg/errors"
+	"github.com/zincsearch/zincsearch/pkg/meta"
+	zincanalysis "github.com/zincsearch/zincsearch/pkg/uquery/analysis"
+	"github.com/zincsearch/zincsearch/pkg/uquery/mappings"
+	"github.com/zincsearch/zincsearch/pkg/zutils/json"
 )
 
 func Request(data map[string]interface{}) (*meta.Index, error) {

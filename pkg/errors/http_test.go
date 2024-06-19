@@ -22,7 +22,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/zinclabs/zinc/test/utils"
+	"github.com/zincsearch/zincsearch/test/utils"
 )
 
 func TestHandleError(t *testing.T) {

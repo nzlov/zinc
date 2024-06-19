@@ -23,11 +23,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog/log"
 
-	"github.com/zinclabs/zinc/pkg/config"
-	"github.com/zinclabs/zinc/pkg/core"
-	"github.com/zinclabs/zinc/pkg/ider"
-	"github.com/zinclabs/zinc/pkg/meta"
-	"github.com/zinclabs/zinc/pkg/zutils/json"
+	"github.com/zincsearch/zincsearch/pkg/config"
+	"github.com/zincsearch/zincsearch/pkg/core"
+	"github.com/zincsearch/zincsearch/pkg/ider"
+	"github.com/zincsearch/zincsearch/pkg/meta"
+	"github.com/zincsearch/zincsearch/pkg/zutils/json"
 )
 
 // Multi accept multiple line json documents
@@ -91,7 +91,7 @@ func MultiWorker(indexName string, body io.Reader) (int64, error) {
 
 		update := false
 
-		var docID = ""
+		docID := ""
 		if val, ok := doc["_id"]; ok && val != nil {
 			docID = val.(string)
 		}

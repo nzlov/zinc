@@ -22,9 +22,9 @@ import (
 	"github.com/rs/zerolog/log"
 	"golang.org/x/sync/errgroup"
 
-	"github.com/zinclabs/zinc/pkg/config"
-	"github.com/zinclabs/zinc/pkg/meta"
-	"github.com/zinclabs/zinc/pkg/metadata"
+	"github.com/zincsearch/zincsearch/pkg/config"
+	"github.com/zincsearch/zincsearch/pkg/meta"
+	"github.com/zincsearch/zincsearch/pkg/metadata"
 )
 
 var ZINC_INDEX_LIST IndexList
@@ -167,7 +167,7 @@ func (t *IndexList) Close() error {
 	t.lock.Lock()
 	defer t.lock.Unlock()
 	eg := errgroup.Group{}
-	eg.SetLimit(config.Global.Shard.GorutineNum)
+	eg.SetLimit(config.Global.Shard.GoroutineNum)
 	for _, index := range t.Indexes {
 		index := index
 		eg.Go(func() error {

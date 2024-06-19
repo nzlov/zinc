@@ -22,10 +22,10 @@ import (
 	"github.com/blugelabs/bluge/analysis"
 	"github.com/blugelabs/bluge/analysis/tokenizer"
 
-	"github.com/zinclabs/zinc/pkg/bluge/analysis/lang/chs"
-	"github.com/zinclabs/zinc/pkg/errors"
-	zinctokenizer "github.com/zinclabs/zinc/pkg/uquery/analysis/tokenizer"
-	"github.com/zinclabs/zinc/pkg/zutils"
+	"github.com/zincsearch/zincsearch/pkg/bluge/analysis/lang/chs"
+	"github.com/zincsearch/zincsearch/pkg/errors"
+	zinctokenizer "github.com/zincsearch/zincsearch/pkg/uquery/analysis/tokenizer"
+	"github.com/zincsearch/zincsearch/pkg/zutils"
 )
 
 func RequestTokenizer(data map[string]interface{}) (map[string]analysis.Tokenizer, error) {

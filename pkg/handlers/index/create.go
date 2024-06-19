@@ -21,12 +21,12 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/zinclabs/zinc/pkg/config"
-	"github.com/zinclabs/zinc/pkg/core"
-	"github.com/zinclabs/zinc/pkg/meta"
-	zincanalysis "github.com/zinclabs/zinc/pkg/uquery/analysis"
-	"github.com/zinclabs/zinc/pkg/uquery/mappings"
-	"github.com/zinclabs/zinc/pkg/zutils"
+	"github.com/zincsearch/zincsearch/pkg/config"
+	"github.com/zincsearch/zincsearch/pkg/core"
+	"github.com/zincsearch/zincsearch/pkg/meta"
+	zincanalysis "github.com/zincsearch/zincsearch/pkg/uquery/analysis"
+	"github.com/zincsearch/zincsearch/pkg/uquery/mappings"
+	"github.com/zincsearch/zincsearch/pkg/zutils"
 )
 
 // @Id CreateIndex
@@ -79,9 +79,6 @@ func CreateES(c *gin.Context) {
 		return
 	}
 
-	// TODO: migrate ES settings to Zinc specific
-	newIndex.Settings = nil
-
 	// default the storage_type to disk, to provide the best possible integration
 	newIndex.StorageType = "disk"
 
@@ -99,6 +96,7 @@ func CreateES(c *gin.Context) {
 }
 
 func CreateIndexWorker(newIndex *meta.IndexSimple, indexName string) error {
+	newIndex.StorageType = "disk"
 	if newIndex.Name == "" && indexName != "" {
 		newIndex.Name = indexName
 	}

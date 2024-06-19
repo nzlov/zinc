@@ -18,8 +18,8 @@ package timerange
 import (
 	"strings"
 
-	"github.com/zinclabs/zinc/pkg/meta"
-	"github.com/zinclabs/zinc/pkg/zutils/json"
+	"github.com/zincsearch/zincsearch/pkg/meta"
+	"github.com/zincsearch/zincsearch/pkg/zutils/json"
 )
 
 func Query(query interface{}) (int64, int64) {

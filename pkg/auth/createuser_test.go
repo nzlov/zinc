@@ -19,7 +19,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/zinclabs/zinc/pkg/meta"
+	"github.com/zincsearch/zincsearch/pkg/meta"
 )
 
 func TestCreateUser(t *testing.T) {

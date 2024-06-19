@@ -26,9 +26,9 @@ import (
 	"github.com/blugelabs/bluge/search/aggregations"
 	"golang.org/x/sync/errgroup"
 
-	"github.com/zinclabs/zinc/pkg/config"
-	"github.com/zinclabs/zinc/pkg/meta"
-	"github.com/zinclabs/zinc/pkg/uquery"
+	"github.com/zincsearch/zincsearch/pkg/config"
+	"github.com/zincsearch/zincsearch/pkg/meta"
+	"github.com/zincsearch/zincsearch/pkg/uquery"
 )
 
 func MultiSearch(
@@ -59,7 +59,7 @@ func MultiSearch(
 	bucketAggs["duration"] = aggregations.Duration()
 
 	eg := &errgroup.Group{}
-	eg.SetLimit(config.Global.Shard.GorutineNum)
+	eg.SetLimit(config.Global.Shard.GoroutineNum)
 	docs := make(chan *search.DocumentMatch, len(readers)*10)
 	aggs := make(chan *search.Bucket, len(readers))
 
@@ -154,7 +154,8 @@ type DocumentList struct {
 
 func (d *DocumentList) Done() {
 	// do skip
-	for i := int64(0); i < d.from; i++ {
+	alldocLen := int64(d.Len())
+	for i := int64(0); i < d.from && i < alldocLen; i++ {
 		heap.Pop(d)
 	}
 	// log size

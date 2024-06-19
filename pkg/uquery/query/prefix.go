@@ -21,8 +21,8 @@ import (
 
 	"github.com/blugelabs/bluge"
 
-	"github.com/zinclabs/zinc/pkg/errors"
-	"github.com/zinclabs/zinc/pkg/meta"
+	"github.com/zincsearch/zincsearch/pkg/errors"
+	"github.com/zincsearch/zincsearch/pkg/meta"
 )
 
 func PrefixQuery(query map[string]interface{}) (bluge.Query, error) {

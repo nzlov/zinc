@@ -45,11 +45,11 @@ import (
 	"github.com/blugelabs/bluge/analysis/lang/sv"
 	"github.com/blugelabs/bluge/analysis/lang/tr"
 
-	"github.com/zinclabs/zinc/pkg/bluge/analysis/lang/bn"
-	"github.com/zinclabs/zinc/pkg/bluge/analysis/lang/br"
-	"github.com/zinclabs/zinc/pkg/bluge/analysis/lang/et"
-	"github.com/zinclabs/zinc/pkg/bluge/analysis/lang/lv"
-	"github.com/zinclabs/zinc/pkg/bluge/analysis/lang/th"
+	"github.com/zincsearch/zincsearch/pkg/bluge/analysis/lang/bn"
+	"github.com/zincsearch/zincsearch/pkg/bluge/analysis/lang/br"
+	"github.com/zincsearch/zincsearch/pkg/bluge/analysis/lang/et"
+	"github.com/zincsearch/zincsearch/pkg/bluge/analysis/lang/lv"
+	"github.com/zincsearch/zincsearch/pkg/bluge/analysis/lang/th"
 )
 
 func StopWords(stopwords []string) analysis.TokenMap {

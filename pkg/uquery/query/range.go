@@ -23,9 +23,9 @@ import (
 
 	"github.com/blugelabs/bluge"
 
-	"github.com/zinclabs/zinc/pkg/errors"
-	"github.com/zinclabs/zinc/pkg/meta"
-	"github.com/zinclabs/zinc/pkg/zutils"
+	"github.com/zincsearch/zincsearch/pkg/errors"
+	"github.com/zincsearch/zincsearch/pkg/meta"
+	"github.com/zincsearch/zincsearch/pkg/zutils"
 )
 
 func RangeQuery(query map[string]interface{}, mappings *meta.Mappings) (bluge.Query, error) {
@@ -80,7 +80,6 @@ func RangeQueryNumeric(field string, query map[string]interface{}, mappings *met
 	maxInclusive := false
 	if value.GT != nil && value.GT.(float64) > 0 {
 		min = value.GT.(float64)
-
 	}
 	if value.GTE != nil && value.GTE.(float64) > 0 {
 		min = value.GTE.(float64)

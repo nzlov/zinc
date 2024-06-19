@@ -24,7 +24,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/zinclabs/zinc/pkg/zutils/json"
+	"github.com/zincsearch/zincsearch/pkg/zutils/json"
 )
 
 func TestAnalyze(t *testing.T) {
@@ -301,9 +301,9 @@ func TestAnalyze(t *testing.T) {
 		t.Run("web analyzer", func(t *testing.T) {
 			input := `{
 				"analyzer": "web",
-				"text": "Hello info@blugelabs.com, i come from https://docs.zincsearch.com/"
+				"text": "Hello info@blugelabs.com, i come from https://zincsearch-docs.zinc.dev/"
 			  }`
-			output := `[hello info@blugelabs.com come https://docs.zincsearch.com/]`
+			output := `[hello info@blugelabs.com come https://zincsearch-docs.zinc.dev/]`
 
 			body := bytes.NewBuffer(nil)
 			body.WriteString(input)
@@ -1161,7 +1161,6 @@ func TestAnalyze(t *testing.T) {
 			assert.NoError(t, err)
 			assert.Equal(t, output, tokens)
 		})
-
 	})
 
 	t.Run("test character filter", func(t *testing.T) {

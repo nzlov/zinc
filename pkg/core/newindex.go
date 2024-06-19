@@ -23,12 +23,12 @@ import (
 	"github.com/blugelabs/bluge"
 	"github.com/blugelabs/bluge/analysis"
 
-	"github.com/zinclabs/zinc/pkg/bluge/directory"
-	"github.com/zinclabs/zinc/pkg/config"
-	"github.com/zinclabs/zinc/pkg/ider"
-	"github.com/zinclabs/zinc/pkg/meta"
-	"github.com/zinclabs/zinc/pkg/metadata"
-	"github.com/zinclabs/zinc/pkg/zutils/hash/rendezvous"
+	"github.com/zincsearch/zincsearch/pkg/bluge/directory"
+	"github.com/zincsearch/zincsearch/pkg/config"
+	"github.com/zincsearch/zincsearch/pkg/ider"
+	"github.com/zincsearch/zincsearch/pkg/meta"
+	"github.com/zincsearch/zincsearch/pkg/metadata"
+	"github.com/zincsearch/zincsearch/pkg/zutils/hash/rendezvous"
 )
 
 var indexNameRe = regexp.MustCompile(`^[a-zA-Z0-9_.-]+$`)
@@ -40,7 +40,7 @@ func CheckIndexName(name string) error {
 	if strings.HasPrefix(name, "_") {
 		return fmt.Errorf("index name cannot start with _")
 	}
-	if !indexNameRe.Match([]byte(name)) {
+	if !indexNameRe.MatchString(name) {
 		return fmt.Errorf("index name [%s] is invalid, just accept [a-zA-Z0-9_.-]", name)
 	}
 	return nil
@@ -125,19 +125,8 @@ func OpenIndexWriter(name string, storageType string, defaultSearchAnalyzer *ana
 }
 
 func getOpenConfig(name string, storageType string, defaultSearchAnalyzer *analysis.Analyzer, timeRange ...int64) bluge.Config {
-	var dataPath string
-	var cfg bluge.Config
-	switch storageType {
-	case "s3":
-		dataPath = config.Global.S3.Bucket
-		cfg = directory.GetS3Config(dataPath, name, timeRange...)
-	case "minio":
-		dataPath = config.Global.MinIO.Bucket
-		cfg = directory.GetMinIOConfig(dataPath, name, timeRange...)
-	default:
-		dataPath = config.Global.DataPath
-		cfg = directory.GetDiskConfig(dataPath, name, timeRange...)
-	}
+	dataPath := config.Global.DataPath
+	cfg := directory.GetDiskConfig(dataPath, name, timeRange...)
 	if defaultSearchAnalyzer != nil {
 		cfg.DefaultSearchAnalyzer = defaultSearchAnalyzer
 	}

@@ -23,13 +23,14 @@ import (
 	"github.com/blugelabs/bluge/analysis"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/zinclabs/zinc/pkg/config"
+	"github.com/zincsearch/zincsearch/pkg/config"
 )
 
 func TestLoadDict(t *testing.T) {
 	type args struct {
-		enable bool
-		embed  string
+		enable     bool
+		enableStop bool
+		embed      string
 	}
 	tests := []struct {
 		name string
@@ -38,28 +39,31 @@ func TestLoadDict(t *testing.T) {
 		{
 			name: "enable=false,embed=small",
 			args: args{
-				enable: false,
-				embed:  "SMALL",
+				enable:     false,
+				enableStop: false,
+				embed:      "SMALL",
 			},
 		},
 		{
 			name: "enable=true,embed=small",
 			args: args{
-				enable: true,
-				embed:  "SMALL",
+				enable:     true,
+				enableStop: true,
+				embed:      "SMALL",
 			},
 		},
 		{
 			name: "enable=true,embed=big",
 			args: args{
-				enable: true,
-				embed:  "BIG",
+				enable:     true,
+				enableStop: true,
+				embed:      "BIG",
 			},
 		},
 	}
 
 	t.Run("prepare dict", func(t *testing.T) {
-		_ = os.Mkdir("data", 0755)
+		_ = os.Mkdir("data", 0o755)
 		config.Global.Plugin.GSE.DictPath = "./data"
 		err := writeFile("./data/user.txt", "你若安好便是晴天 100 n\n")
 		assert.NoError(t, err)
@@ -69,7 +73,7 @@ func TestLoadDict(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			loadDict(tt.args.enable, tt.args.embed)
+			loadDict(tt.args.enable, tt.args.enableStop, tt.args.embed)
 		})
 	}
 
@@ -185,7 +189,7 @@ func TestNewGseStopTokenFilter(t *testing.T) {
 }
 
 func writeFile(path string, content string) error {
-	f, err := os.OpenFile(path, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
+	f, err := os.OpenFile(path, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0o644)
 	if err != nil {
 		return err
 	}

@@ -20,12 +20,13 @@ import (
 
 	"github.com/blugelabs/bluge/analysis"
 	"github.com/go-ego/gse"
+	"github.com/rs/zerolog/log"
 
-	"github.com/zinclabs/zinc/pkg/bluge/analysis/lang/chs/analyzer"
-	"github.com/zinclabs/zinc/pkg/bluge/analysis/lang/chs/token"
-	"github.com/zinclabs/zinc/pkg/bluge/analysis/lang/chs/tokenizer"
-	"github.com/zinclabs/zinc/pkg/config"
-	"github.com/zinclabs/zinc/pkg/zutils"
+	"github.com/zincsearch/zincsearch/pkg/bluge/analysis/lang/chs/analyzer"
+	"github.com/zincsearch/zincsearch/pkg/bluge/analysis/lang/chs/token"
+	"github.com/zincsearch/zincsearch/pkg/bluge/analysis/lang/chs/tokenizer"
+	"github.com/zincsearch/zincsearch/pkg/config"
+	"github.com/zincsearch/zincsearch/pkg/zutils"
 )
 
 func NewGseStandardAnalyzer() *analysis.Analyzer {
@@ -39,6 +40,7 @@ func NewGseSearchAnalyzer() *analysis.Analyzer {
 func NewGseStandardTokenizer() analysis.Tokenizer {
 	return tokenizer.NewStandardTokenizer(seg)
 }
+
 func NewGseSearchTokenizer() analysis.Tokenizer {
 	return tokenizer.NewSearchTokenizer(seg)
 }
@@ -51,35 +53,50 @@ var seg *gse.Segmenter
 
 func init() {
 	seg = new(gse.Segmenter)
-	enable := config.Global.Plugin.GSE.Enable   // true / false
-	embed := config.Global.Plugin.GSE.DictEmbed // small / big
+	enable := config.Global.Plugin.GSE.Enable         // true / false
+	enableStop := config.Global.Plugin.GSE.EnableStop // true / false
+	embed := config.Global.Plugin.GSE.DictEmbed       // small / big
 	embed = strings.ToUpper(embed)
-	loadDict(enable, embed)
+	loadDict(enable, enableStop, embed)
 }
 
-func loadDict(enable bool, embed string) {
+func loadDict(enable, enableStop bool, embed string) {
 	if enable {
+		// load default dict
 		if embed == "BIG" {
 			_ = seg.LoadDictEmbed("zh_s")
-			_ = seg.LoadStopEmbed()
+			if enableStop {
+				_ = seg.LoadStopEmbed()
+			}
 		} else {
 			_ = seg.LoadDictStr(_dictCHS)
-			_ = seg.LoadStopStr(_dictStop)
+			if enableStop {
+				_ = seg.LoadStopStr(_dictStop)
+			}
 		}
 	} else {
+		// load empty dict
 		_ = seg.LoadDictStr(`zinc`)
-		_ = seg.LoadStopStr(_dictStop)
+		if enableStop {
+			_ = seg.LoadStopStr(_dictStop)
+		}
 	}
+
 	seg.Load = true
 	seg.SkipLog = true
+	if !enable {
+		return
+	}
 
 	// load user dict
 	dataPath := config.Global.Plugin.GSE.DictPath
 	userDict := dataPath + "/user.txt"
+	log.Info().Msgf("Loading  Gse user dict... %s", userDict)
 	if ok, _ := zutils.IsExist(userDict); ok {
 		_ = seg.LoadDict(userDict)
 	}
 	stopDict := dataPath + "/stop.txt"
+	log.Info().Msgf("Loading  Gse user stop... %s", stopDict)
 	if ok, _ := zutils.IsExist(stopDict); ok {
 		_ = seg.LoadStop(stopDict)
 	}

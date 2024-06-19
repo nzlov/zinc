@@ -16,7 +16,7 @@
 package auth
 
 import (
-	"github.com/zinclabs/zinc/pkg/metadata"
+	"github.com/zincsearch/zincsearch/pkg/metadata"
 )
 
 func GetPermissions() []string {

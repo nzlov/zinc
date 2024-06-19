@@ -16,9 +16,9 @@
 package metadata
 
 import (
-	"github.com/zinclabs/zinc/pkg/meta"
-	"github.com/zinclabs/zinc/pkg/upgrade"
-	"github.com/zinclabs/zinc/pkg/zutils/json"
+	"github.com/zincsearch/zincsearch/pkg/meta"
+	"github.com/zincsearch/zincsearch/pkg/upgrade"
+	"github.com/zincsearch/zincsearch/pkg/zutils/json"
 )
 
 type index struct{}

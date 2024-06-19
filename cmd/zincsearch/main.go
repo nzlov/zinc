@@ -31,16 +31,16 @@ import (
 	"github.com/pyroscope-io/client/pyroscope"
 	"github.com/rs/zerolog/log"
 
-	"github.com/zinclabs/zinc/pkg/config"
-	"github.com/zinclabs/zinc/pkg/core"
-	"github.com/zinclabs/zinc/pkg/meta"
-	"github.com/zinclabs/zinc/pkg/metadata"
-	"github.com/zinclabs/zinc/pkg/routes"
+	"github.com/zincsearch/zincsearch/pkg/config"
+	"github.com/zincsearch/zincsearch/pkg/core"
+	"github.com/zincsearch/zincsearch/pkg/meta"
+	"github.com/zincsearch/zincsearch/pkg/metadata"
+	"github.com/zincsearch/zincsearch/pkg/routes"
 )
 
 // @title           Zinc Search engine API
 // @version         1.0.0
-// @description     Zinc Search engine API documents https://docs.zincsearch.com
+// @description     Zinc Search engine API documents https://zincsearch-docs.zinc.dev
 // @termsOfService  http://swagger.io/terms/
 
 // @license.name    Apache 2.0
@@ -64,7 +64,7 @@ func main() {
 	telemetry()
 	// Initialize sentry
 	sentries()
-	// Coninuous profiling
+	// Continuous profiling
 	profiling()
 
 	// HTTP init
@@ -103,7 +103,6 @@ func main() {
 	})
 
 	err := func() error {
-
 		log.Info().Msg("Listen on " + server.Addr)
 
 		if config.Global.ServerTLSCertificateFile != "" && config.Global.ServerTLSKeyFile != "" {
@@ -129,9 +128,7 @@ func main() {
 		}
 
 		return server.ListenAndServe()
-
 	}()
-
 	if err != nil {
 		if err == http.ErrServerClosed {
 			log.Info().Msg("Server closed")

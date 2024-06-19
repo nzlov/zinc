@@ -975,16 +975,6 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
-                    },
-                    {
-                        "description": "Document",
-                        "name": "document",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
                     }
                 ],
                 "responses": {
@@ -3612,7 +3602,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "sort": {
-                    "description": "\"_sorce\", [\"+Year\",\"-Year\", {\"Year\": \"desc\"}, \"Date\": {\"order\": \"asc\"\", \"format\": \"yyyy-MM-dd\"}}\"}]",
+                    "description": "\"_score\", [\"+Year\",\"-Year\", {\"Year\": \"desc\"}, \"Date\": {\"order\": \"asc\"\", \"format\": \"yyyy-MM-dd\"}}\"}]",
                     "type": "array",
                     "items": {
                         "type": "string"
@@ -3771,7 +3761,7 @@ var SwaggerInfo = &swag.Spec{
 	BasePath:         "/",
 	Schemes:          []string{"http", "https"},
 	Title:            "Zinc Search engine API",
-	Description:      "Zinc Search engine API documents https://docs.zincsearch.com",
+	Description:      "Zinc Search engine API documents https://zincsearch-docs.zinc.dev",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 }

@@ -20,9 +20,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/zinclabs/zinc/pkg/core"
-	"github.com/zinclabs/zinc/pkg/meta"
-	"github.com/zinclabs/zinc/pkg/zutils"
+	"github.com/zincsearch/zincsearch/pkg/core"
+	"github.com/zincsearch/zincsearch/pkg/meta"
+	"github.com/zincsearch/zincsearch/pkg/zutils"
 )
 
 // @Id GetDocument
@@ -33,7 +33,6 @@ import (
 // @Produce json
 // @Param   index  path  string  true  "Index"
 // @Param   id     path  string  true  "ID"
-// @Param   document  body  map[string]interface{}  true  "Document"
 // @Success 200 {object} meta.Hit
 // @Failure 400 {object} meta.HTTPResponseError
 // @Failure 500 {object} meta.HTTPResponseError

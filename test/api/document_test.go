@@ -23,11 +23,10 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/zinclabs/zinc/pkg/zutils/json"
+	"github.com/zincsearch/zincsearch/pkg/zutils/json"
 )
 
 func TestDocument(t *testing.T) {
-
 	t.Run("PUT /api/:target/_doc", func(t *testing.T) {
 		_id := ""
 		t.Run("create document with not exist indexName", func(t *testing.T) {
@@ -118,5 +117,4 @@ func TestDocument(t *testing.T) {
 			assert.Equal(t, http.StatusOK, resp.Code)
 		})
 	})
-
 }

@@ -983,7 +983,7 @@ definitions:
       size:
         type: integer
       sort:
-        description: '"_sorce", ["+Year","-Year", {"Year": "desc"}, "Date": {"order":
+        description: '"_score", ["+Year","-Year", {"Year": "desc"}, "Date": {"order":
           "asc"", "format": "yyyy-MM-dd"}}"}]'
         items:
           type: string
@@ -1085,7 +1085,7 @@ info:
   contact:
     name: Zinc Search
     url: https://www.zincsearch.com
-  description: Zinc Search engine API documents https://docs.zincsearch.com
+  description: Zinc Search engine API documents https://zincsearch-docs.zinc.dev
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
@@ -1301,13 +1301,6 @@ paths:
         name: id
         required: true
         type: string
-      - description: Document
-        in: body
-        name: document
-        required: true
-        schema:
-          additionalProperties: true
-          type: object
       produces:
       - application/json
       responses:

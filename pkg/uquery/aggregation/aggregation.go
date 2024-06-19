@@ -24,11 +24,11 @@ import (
 	"github.com/blugelabs/bluge/search"
 	"github.com/blugelabs/bluge/search/aggregations"
 
-	zincaggregation "github.com/zinclabs/zinc/pkg/bluge/aggregation"
-	"github.com/zinclabs/zinc/pkg/config"
-	"github.com/zinclabs/zinc/pkg/errors"
-	"github.com/zinclabs/zinc/pkg/meta"
-	"github.com/zinclabs/zinc/pkg/zutils"
+	zincaggregation "github.com/zincsearch/zincsearch/pkg/bluge/aggregation"
+	"github.com/zincsearch/zincsearch/pkg/config"
+	"github.com/zincsearch/zincsearch/pkg/errors"
+	"github.com/zincsearch/zincsearch/pkg/meta"
+	"github.com/zincsearch/zincsearch/pkg/zutils"
 )
 
 func Request(req zincaggregation.SearchAggregation, aggs map[string]meta.Aggregations, mappings *meta.Mappings) error {
@@ -192,7 +192,7 @@ func Request(req zincaggregation.SearchAggregation, aggs map[string]meta.Aggrega
 
 			// format interval
 			var interval int64
-			var calendarInterval = agg.DateHistogram.CalendarInterval
+			calendarInterval := agg.DateHistogram.CalendarInterval
 			if agg.DateHistogram.CalendarInterval != "" {
 				switch agg.DateHistogram.CalendarInterval {
 				case "second", "1s":

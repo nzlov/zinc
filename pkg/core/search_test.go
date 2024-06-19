@@ -23,7 +23,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/zinclabs/zinc/pkg/meta"
+	"github.com/zincsearch/zincsearch/pkg/meta"
 )
 
 func TestIndex_Search(t *testing.T) {
@@ -259,8 +259,8 @@ func TestIndex_Search(t *testing.T) {
 		})
 
 		for _, d := range prepareData {
-			rand.Seed(time.Now().UnixNano())
-			docId := rand.Intn(1000)
+			r := rand.New(rand.NewSource(time.Now().UnixNano()))
+			docId := r.Intn(1000)
 			err := index.CreateDocument(strconv.Itoa(docId), d, false)
 			assert.NoError(t, err)
 		}

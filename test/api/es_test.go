@@ -23,7 +23,7 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/zinclabs/zinc/pkg/zutils/json"
+	"github.com/zincsearch/zincsearch/pkg/zutils/json"
 )
 
 func TestApiES(t *testing.T) {
@@ -275,6 +275,5 @@ func TestApiES(t *testing.T) {
 				assert.Equal(t, http.StatusBadRequest, resp.Code)
 			})
 		})
-
 	})
 }

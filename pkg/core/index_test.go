@@ -25,8 +25,8 @@ import (
 	"github.com/blugelabs/bluge/analysis/analyzer"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/zinclabs/zinc/pkg/meta"
-	"github.com/zinclabs/zinc/pkg/zutils/json"
+	"github.com/zincsearch/zincsearch/pkg/meta"
+	"github.com/zincsearch/zincsearch/pkg/zutils/json"
 )
 
 func TestIndex_Index(t *testing.T) {

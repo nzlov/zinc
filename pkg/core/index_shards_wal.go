@@ -24,12 +24,12 @@ import (
 	blugeindex "github.com/blugelabs/bluge/index"
 	"github.com/rs/zerolog/log"
 
-	"github.com/zinclabs/zinc/pkg/config"
-	"github.com/zinclabs/zinc/pkg/errors"
-	"github.com/zinclabs/zinc/pkg/meta"
-	"github.com/zinclabs/zinc/pkg/wal"
-	"github.com/zinclabs/zinc/pkg/zutils"
-	"github.com/zinclabs/zinc/pkg/zutils/json"
+	"github.com/zincsearch/zincsearch/pkg/config"
+	"github.com/zincsearch/zincsearch/pkg/errors"
+	"github.com/zincsearch/zincsearch/pkg/meta"
+	"github.com/zincsearch/zincsearch/pkg/wal"
+	"github.com/zincsearch/zincsearch/pkg/zutils"
+	"github.com/zincsearch/zincsearch/pkg/zutils/json"
 )
 
 // MaxBatchSize used to limit memory
@@ -159,7 +159,7 @@ func (s *IndexShard) ConsumeWAL() bool {
 	if minID == maxID {
 		return false // no new entries
 	}
-	// log.Debug().Str("index", s.GetIndexName()).Int64("shard", s.GetID()).Uint64("minID", minID).Uint64("maxID", maxID).Msg("consume wal begin")
+	log.Debug().Str("index", s.GetIndexName()).Str("shard", s.GetID()).Uint64("minID", minID).Uint64("maxID", maxID).Msg("consume wal begin")
 
 	// limit max batch size
 	if maxID-minID > MaxBatchSize {
@@ -218,7 +218,7 @@ func (s *IndexShard) ConsumeWAL() bool {
 			return false
 		}
 	}
-	// log.Debug().Str("index", s.GetIndexName()).Int64("shard", s.GetID()).Uint64("minID", minID).Uint64("maxID", maxID).Msg("consume wal end")
+	log.Debug().Str("index", s.GetIndexName()).Str("shard", s.GetID()).Uint64("minID", minID).Uint64("maxID", maxID).Msg("consume wal end")
 
 	// Truncate log
 	if err = s.wal.TruncateFront(minID); err != nil {

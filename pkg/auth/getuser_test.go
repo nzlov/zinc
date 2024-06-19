@@ -19,7 +19,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/zinclabs/zinc/pkg/meta"
+	"github.com/zincsearch/zincsearch/pkg/meta"
 )
 
 func TestGetUser(t *testing.T) {
@@ -78,7 +78,6 @@ func TestGetUser(t *testing.T) {
 			assert.Equal(t, tt.want.Name, got.Name)
 			assert.Equal(t, tt.want.Role, got.Role)
 			assert.Equal(t, tt.want1, got1)
-
 		})
 	}
 }

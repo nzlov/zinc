@@ -56,11 +56,10 @@ type config struct {
 	MaxDocumentSize           int           `env:"ZINC_MAX_DOCUMENT_SIZE,default=1m"`      // Max size for a single document . Default = 1 MB = 1024 * 1024
 	WalSyncInterval           time.Duration `env:"ZINC_WAL_SYNC_INTERVAL,default=1s"`      // sync wal to disk, 1s, 10ms
 	WalRedoLogNoSync          bool          `env:"ZINC_WAL_REDOLOG_NO_SYNC,default=false"` // control sync after every write
+	ZincSwaggerEnable         bool          `env:"ZINC_SWAGGER_ENABLE,default=true"`
 	Cluster                   cluster
 	Shard                     shard
 	Etcd                      etcd
-	S3                        s3
-	MinIO                     minIO
 	Plugin                    plugin
 }
 
@@ -69,12 +68,12 @@ type cluster struct {
 }
 
 type shard struct {
+	// control goroutine number for read
+	GoroutineNum int `env:"ZINC_SHARD_GOROUTINE_NUM,default=3"`
 	// DefaultNum is the default number of shards.
 	Num int64 `env:"ZINC_SHARD_NUM,default=3"`
 	// MaxSize is the maximum size limit for one shard, or will create a new shard.
 	MaxSize uint64 `env:"ZINC_SHARD_MAX_SIZE,default=1073741824"`
-	// control gorutine number for read
-	GorutineNum int `env:"ZINC_SHARD_GORUTINE_NUM,default=10"`
 }
 
 type etcd struct {
@@ -82,18 +81,6 @@ type etcd struct {
 	Prefix    string   `env:"ZINC_ETCD_PREFIX,default=/zinc"`
 	Username  string   `env:"ZINC_ETCD_USERNAME"`
 	Password  string   `env:"ZINC_ETCD_PASSWORD"`
-}
-
-type s3 struct {
-	Bucket string `env:"ZINC_S3_BUCKET"`
-	Url    string `env:"ZINC_S3_URL"`
-}
-
-type minIO struct {
-	Endpoint        string `env:"ZINC_MINIO_ENDPOINT"`
-	Bucket          string `env:"ZINC_MINIO_BUCKET"`
-	AccessKeyID     string `env:"ZINC_MINIO_ACCESS_KEY_ID"`
-	SecretAccessKey string `env:"ZINC_MINIO_SECRET_ACCESS_KEY"`
 }
 
 type plugin struct {
@@ -106,9 +93,11 @@ type elasticsearch struct {
 }
 
 type gse struct {
-	Enable    bool   `env:"ZINC_PLUGIN_GSE_ENABLE,default=false"`
-	DictEmbed string `env:"ZINC_PLUGIN_GSE_DICT_EMBED,default=small"`
-	DictPath  string `env:"ZINC_PLUGIN_GSE_DICT_PATH,default=./plugins/gse/dict"`
+	Enable     bool   `env:"ZINC_PLUGIN_GSE_ENABLE,default=false"`
+	EnableStop bool   `env:"ZINC_PLUGIN_GSE_ENABLE_STOP,default=true"`
+	EnableHMM  bool   `env:"ZINC_PLUGIN_GSE_ENABLE_HMM,default=true"`
+	DictEmbed  string `env:"ZINC_PLUGIN_GSE_DICT_EMBED,default=small"`
+	DictPath   string `env:"ZINC_PLUGIN_GSE_DICT_PATH,default=./plugins/gse/dict"`
 }
 
 var Global = new(config)
@@ -127,7 +116,7 @@ func init() {
 
 	// check data path
 	testPath := path.Join(Global.DataPath, "_test_")
-	if err := os.MkdirAll(testPath, 0755); err != nil {
+	if err := os.MkdirAll(testPath, 0o755); err != nil {
 		log.Fatal().Err(err).Msg("ZINC_DATA_PATH is not writable")
 	}
 	if err := os.Remove(testPath); err != nil {

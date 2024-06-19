@@ -23,9 +23,9 @@ import (
 	"github.com/rs/zerolog/log"
 	"go.etcd.io/bbolt"
 
-	"github.com/zinclabs/zinc/pkg/config"
-	"github.com/zinclabs/zinc/pkg/errors"
-	"github.com/zinclabs/zinc/pkg/metadata/storage"
+	"github.com/zincsearch/zincsearch/pkg/config"
+	"github.com/zincsearch/zincsearch/pkg/errors"
+	"github.com/zincsearch/zincsearch/pkg/metadata/storage"
 )
 
 type boltStorage struct {
@@ -46,10 +46,10 @@ func openbboltDB(dbpath string, readOnly bool) (*bbolt.DB, error) {
 		NoGrowSync:   false,
 		FreelistType: bbolt.FreelistArrayType,
 	}
-	if err := os.MkdirAll(path.Dir(dbpath), 0755); err != nil {
+	if err := os.MkdirAll(path.Dir(dbpath), 0o755); err != nil {
 		return nil, err
 	}
-	return bbolt.Open(dbpath, 0666, opt)
+	return bbolt.Open(dbpath, 0o666, opt)
 }
 
 func (t *boltStorage) List(prefix string, _, _ int) ([][]byte, error) {
